@@ -1,2 +1,5 @@
 *.idea
 *.iml
+artimo-server/common/target
+artimo-server/server/target
+artimo-server/service/target

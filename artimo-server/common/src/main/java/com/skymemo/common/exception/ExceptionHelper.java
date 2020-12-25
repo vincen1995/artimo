@@ -15,7 +15,7 @@ public class ExceptionHelper {
      * @return
      * @throws Exception
      */
-    public static BaseException throwException(ErrorCode errorCode, Object... args) throws Exception{
+    public static void throwException(ErrorCode errorCode, Object... args) throws Exception{
         if (errorCode == null) {
             errorCode = ErrorCode.UNKNOWN_ERROR;
         }

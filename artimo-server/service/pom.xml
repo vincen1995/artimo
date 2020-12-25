@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<packaging>jar</packaging>
 	<parent>
 		<groupId>com.skymemo</groupId>
 		<artifactId>artimo-server</artifactId>
@@ -14,13 +15,19 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<!-- custom property begin -->
+		<mybatis.generator.connector>${basedir}/../lib/mysql-connector-java.jar</mybatis.generator.connector>
+		<srcDir>${basedir}/src/main/java</srcDir>
+		<resourceDir>${basedir}/src/main/resources</resourceDir>
+		<skymemo.common.version>0.0.1-SNAPSHOT</skymemo.common.version>
+		<!-- custom property end -->
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.skymemo</groupId>
 			<artifactId>common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${skymemo.common.version}</version>
 		</dependency>
 
 		<dependency>
@@ -39,6 +46,25 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.21</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -46,6 +72,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.4.0</version>
+				<configuration>
+					<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+					<overwrite>true</overwrite>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

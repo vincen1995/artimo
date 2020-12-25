@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skymemo.artimo.dao.common.CommonLogMapper">
+  <resultMap id="BaseResultMap" type="com.skymemo.artimo.entity.common.CommonLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source_id" jdbcType="BIGINT" property="sourceId" />
+    <result column="app_code" jdbcType="VARCHAR" property="appCode" />
+    <result column="module_code" jdbcType="VARCHAR" property="moduleCode" />
+    <result column="table_code" jdbcType="VARCHAR" property="tableCode" />
+    <result column="op_type" jdbcType="VARCHAR" property="opType" />
+    <result column="op_result" jdbcType="VARCHAR" property="opResult" />
+    <result column="op_data_id" jdbcType="BIGINT" property="opDataId" />
+    <result column="utc_create" jdbcType="TIMESTAMP" property="utcCreate" />
+    <result column="utc_update" jdbcType="TIMESTAMP" property="utcUpdate" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="op_user_id" jdbcType="BIGINT" property="opUserId" />
+    <result column="op_user_name" jdbcType="VARCHAR" property="opUserName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, source_id, app_code, module_code, table_code, op_type, op_result, op_data_id, 
+    utc_create, utc_update, user_id, op_user_id, op_user_name
+  </sql>
+  <select id="selectByExample" parameterType="com.skymemo.artimo.entity.common.CommonLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from common_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.skymemo.artimo.entity.common.CommonLogExample">
+    delete from common_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.skymemo.artimo.entity.common.CommonLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_log (source_id, app_code, module_code, 
+      table_code, op_type, op_result, 
+      op_data_id, utc_create, utc_update, 
+      user_id, op_user_id, op_user_name
+      )
+    values (#{sourceId,jdbcType=BIGINT}, #{appCode,jdbcType=VARCHAR}, #{moduleCode,jdbcType=VARCHAR}, 
+      #{tableCode,jdbcType=VARCHAR}, #{opType,jdbcType=VARCHAR}, #{opResult,jdbcType=VARCHAR}, 
+      #{opDataId,jdbcType=BIGINT}, #{utcCreate,jdbcType=TIMESTAMP}, #{utcUpdate,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT}, #{opUserId,jdbcType=BIGINT}, #{opUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.skymemo.artimo.entity.common.CommonLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sourceId != null">
+        source_id,
+      </if>
+      <if test="appCode != null">
+        app_code,
+      </if>
+      <if test="moduleCode != null">
+        module_code,
+      </if>
+      <if test="tableCode != null">
+        table_code,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="opResult != null">
+        op_result,
+      </if>
+      <if test="opDataId != null">
+        op_data_id,
+      </if>
+      <if test="utcCreate != null">
+        utc_create,
+      </if>
+      <if test="utcUpdate != null">
+        utc_update,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="opUserId != null">
+        op_user_id,
+      </if>
+      <if test="opUserName != null">
+        op_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sourceId != null">
+        #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="appCode != null">
+        #{appCode,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleCode != null">
+        #{moduleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tableCode != null">
+        #{tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=VARCHAR},
+      </if>
+      <if test="opResult != null">
+        #{opResult,jdbcType=VARCHAR},
+      </if>
+      <if test="opDataId != null">
+        #{opDataId,jdbcType=BIGINT},
+      </if>
+      <if test="utcCreate != null">
+        #{utcCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utcUpdate != null">
+        #{utcUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="opUserId != null">
+        #{opUserId,jdbcType=BIGINT},
+      </if>
+      <if test="opUserName != null">
+        #{opUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.skymemo.artimo.entity.common.CommonLogExample" resultType="java.lang.Long">
+    select count(*) from common_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update common_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.sourceId != null">
+        source_id = #{record.sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.appCode != null">
+        app_code = #{record.appCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleCode != null">
+        module_code = #{record.moduleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableCode != null">
+        table_code = #{record.tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opType != null">
+        op_type = #{record.opType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opResult != null">
+        op_result = #{record.opResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opDataId != null">
+        op_data_id = #{record.opDataId,jdbcType=BIGINT},
+      </if>
+      <if test="record.utcCreate != null">
+        utc_create = #{record.utcCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.utcUpdate != null">
+        utc_update = #{record.utcUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.opUserId != null">
+        op_user_id = #{record.opUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.opUserName != null">
+        op_user_name = #{record.opUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update common_log
+    set id = #{record.id,jdbcType=BIGINT},
+      source_id = #{record.sourceId,jdbcType=BIGINT},
+      app_code = #{record.appCode,jdbcType=VARCHAR},
+      module_code = #{record.moduleCode,jdbcType=VARCHAR},
+      table_code = #{record.tableCode,jdbcType=VARCHAR},
+      op_type = #{record.opType,jdbcType=VARCHAR},
+      op_result = #{record.opResult,jdbcType=VARCHAR},
+      op_data_id = #{record.opDataId,jdbcType=BIGINT},
+      utc_create = #{record.utcCreate,jdbcType=TIMESTAMP},
+      utc_update = #{record.utcUpdate,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      op_user_id = #{record.opUserId,jdbcType=BIGINT},
+      op_user_name = #{record.opUserName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.skymemo.artimo.entity.common.CommonLog">
+    update common_log
+    <set>
+      <if test="sourceId != null">
+        source_id = #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="appCode != null">
+        app_code = #{appCode,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleCode != null">
+        module_code = #{moduleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tableCode != null">
+        table_code = #{tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=VARCHAR},
+      </if>
+      <if test="opResult != null">
+        op_result = #{opResult,jdbcType=VARCHAR},
+      </if>
+      <if test="opDataId != null">
+        op_data_id = #{opDataId,jdbcType=BIGINT},
+      </if>
+      <if test="utcCreate != null">
+        utc_create = #{utcCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utcUpdate != null">
+        utc_update = #{utcUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="opUserId != null">
+        op_user_id = #{opUserId,jdbcType=BIGINT},
+      </if>
+      <if test="opUserName != null">
+        op_user_name = #{opUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.skymemo.artimo.entity.common.CommonLog">
+    update common_log
+    set source_id = #{sourceId,jdbcType=BIGINT},
+      app_code = #{appCode,jdbcType=VARCHAR},
+      module_code = #{moduleCode,jdbcType=VARCHAR},
+      table_code = #{tableCode,jdbcType=VARCHAR},
+      op_type = #{opType,jdbcType=VARCHAR},
+      op_result = #{opResult,jdbcType=VARCHAR},
+      op_data_id = #{opDataId,jdbcType=BIGINT},
+      utc_create = #{utcCreate,jdbcType=TIMESTAMP},
+      utc_update = #{utcUpdate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT},
+      op_user_id = #{opUserId,jdbcType=BIGINT},
+      op_user_name = #{opUserName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

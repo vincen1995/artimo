@@ -18,9 +18,9 @@ public class ResponseUtil {
      * @param data result data
      * @param <T>
      * @return
-     * @throws Exception
+     * @throws
      */
-    public static <T> IResponseData<T> success(T data) throws Exception{
+    public static <T> IResponseData<T> success(T data) {
         IResponseData<T> responseData = new ResponseData<T>();
 
         responseData.setCode(ErrorCode.SUCCESS.getCode());
@@ -35,9 +35,9 @@ public class ResponseUtil {
      * @param e
      * @param <T>
      * @return
-     * @throws Exception
+     * @throws
      */
-    public static <T> IResponseData<T> error(Exception e) throws Exception{
+    public static <T> IResponseData<T> error(Exception e) {
         if (e.getClass().equals(BizException.class)) {
             BizException ex = (BizException) e;
             return buildResponse(ex.getErrorCode(), ex.getErrorMessage(), null);
@@ -60,9 +60,9 @@ public class ResponseUtil {
      * @param data result data
      * @param <T>
      * @return
-     * @throws Exception
+     * @throws
      */
-    private static <T> IResponseData<T> buildResponse(String code, String message, T data) throws Exception{
+    private static <T> IResponseData<T> buildResponse(String code, String message, T data) {
         IResponseData<T> responseData = new ResponseData<T>();
 
         responseData.setCode(code);
