@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @date 2020/12/22 20:21
  */
 @RestController
-@RequestMapping(value = "/sec")
+@RequestMapping(value = "/user")
 public class SecUserController {
 
     private static final Logger logger = LoggerFactory.getLogger(SecUserController.class);
@@ -29,11 +29,11 @@ public class SecUserController {
     @Resource(name = "iSecUserSV")
     private ISecUserSV iSecUserSV;
 
-    @RequestMapping(value = "/listUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public IResponseData listUser(UserQuery query) {
 
         try {
-            return ResponseUtil.success(iSecUserSV.listUserBaseInfo(query));
+            return ResponseUtil.success(iSecUserSV.listUserBasicInfo(query));
         } catch (Exception e) {
             logger.error("SecUserController.listUser ----> 查询用户列表错误", e);
             return ResponseUtil.error(e);

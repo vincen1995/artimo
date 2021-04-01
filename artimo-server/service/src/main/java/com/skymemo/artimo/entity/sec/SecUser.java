@@ -13,6 +13,8 @@ public class SecUser {
 
     private String state;
 
+    private LocalDateTime utcAvailable;
+
     private String sysRemark;
 
     private LocalDateTime utcCreate;
@@ -63,6 +65,14 @@ public class SecUser {
 
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
+    }
+
+    public LocalDateTime getUtcAvailable() {
+        return utcAvailable;
+    }
+
+    public void setUtcAvailable(LocalDateTime utcAvailable) {
+        this.utcAvailable = utcAvailable;
     }
 
     public String getSysRemark() {

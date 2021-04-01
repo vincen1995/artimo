@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skymemo.artimo.dao.sec.ext.SecUserExtMapper">
+    <resultMap id="BaseResultMap" type="com.skymemo.artimo.entity.sec.SecUser">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+        <result column="utc_available" jdbcType="TIMESTAMP" property="utcAvailable" />
+        <result column="sys_remark" jdbcType="VARCHAR" property="sysRemark" />
+        <result column="utc_create" jdbcType="TIMESTAMP" property="utcCreate" />
+        <result column="utc_update" jdbcType="TIMESTAMP" property="utcUpdate" />
+        <result column="ex_1" jdbcType="VARCHAR" property="ex1" />
+        <result column="ex_2" jdbcType="VARCHAR" property="ex2" />
+        <result column="ex_3" jdbcType="VARCHAR" property="ex3" />
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="DTOResultMap" type="com.skymemo.artimo.service.sec.dto.UserDTO">
+    </resultMap>
+
+    <select id="listUserDTO" parameterType="map" resultMap="DTOResultMap">
+        SELECT
+          su.id, su.username, su.nickname, su.state, su.utc_available, su.sys_remark, su.utc_create, su.utc_update, su.ex_1, su.ex_2, su.ex_3
+        FROM
+          sec_user AS su
+        <where>
+          <if test="searchStr != null">
+            (su.nickname REGEXP #{searchStr,jdbcType=VARCHAR})
+          </if>
+          <if test="username != null">
+            AND su.username = #{username,jdbcType=VARCHAR}
+          </if>
+          <if test="password != null">
+            AND su.password = #{password,jdbcType=VARCHAR}
+          </if>
+          <choose>
+            <when test="state != null">
+              AND su.state = #{state,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+              AND su.state <![CDATA[ <> ]]> #{stateDeleted,jdbcType=VARCHAR}
+            </otherwise>
+          </choose>
+        </where>
+    </select>
+</mapper>

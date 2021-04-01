@@ -17,8 +17,8 @@ public class DateUtil {
      * @return
      */
     public static LocalDateTime getUTC0Current() {
-        Clock clock = Clock.systemUTC();
-        return LocalDateTime.now(clock);
+        ZoneId utc0 = ZoneId.of("UTC+0");
+        return LocalDateTime.now(utc0);
     }
 
     /**

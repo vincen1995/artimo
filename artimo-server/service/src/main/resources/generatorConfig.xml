@@ -62,6 +62,7 @@
                enableDeleteByPrimaryKey="true" enableDeleteByExample="true"
                enableSelectByPrimaryKey="true" enableSelectByExample="true" enableCountByExample="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true" />
+            <columnOverride column="utc_available" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
             <columnOverride column="utc_create" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
             <columnOverride column="utc_update" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
         </table>-->

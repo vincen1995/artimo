@@ -7,7 +7,8 @@
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="state" jdbcType="VARCHAR" property="state" />
-    <result column="sys_remark" jdbcType="CHAR" property="sysRemark" />
+    <result column="utc_available" jdbcType="TIMESTAMP" property="utcAvailable" />
+    <result column="sys_remark" jdbcType="VARCHAR" property="sysRemark" />
     <result column="utc_create" jdbcType="TIMESTAMP" property="utcCreate" />
     <result column="utc_update" jdbcType="TIMESTAMP" property="utcUpdate" />
     <result column="ex_1" jdbcType="VARCHAR" property="ex1" />
@@ -73,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, nickname, password, state, sys_remark, utc_create, utc_update, ex_1, 
-    ex_2, ex_3
+    id, username, nickname, password, state, utc_available, sys_remark, utc_create, utc_update, 
+    ex_1, ex_2, ex_3
   </sql>
   <select id="selectByExample" parameterType="com.skymemo.artimo.entity.sec.SecUserExample" resultMap="BaseResultMap">
     select
@@ -111,13 +112,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into sec_user (username, nickname, password, 
-      state, sys_remark, utc_create, 
-      utc_update, ex_1, ex_2, 
-      ex_3)
+      state, utc_available, sys_remark, 
+      utc_create, utc_update, ex_1, 
+      ex_2, ex_3)
     values (#{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{state,jdbcType=VARCHAR}, #{sysRemark,jdbcType=CHAR}, #{utcCreate,jdbcType=TIMESTAMP}, 
-      #{utcUpdate,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, #{ex2,jdbcType=VARCHAR}, 
-      #{ex3,jdbcType=VARCHAR})
+      #{state,jdbcType=VARCHAR}, #{utcAvailable,jdbcType=TIMESTAMP}, #{sysRemark,jdbcType=VARCHAR}, 
+      #{utcCreate,jdbcType=TIMESTAMP}, #{utcUpdate,jdbcType=TIMESTAMP}, #{ex1,jdbcType=VARCHAR}, 
+      #{ex2,jdbcType=VARCHAR}, #{ex3,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.skymemo.artimo.entity.sec.SecUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -136,6 +137,9 @@
       </if>
       <if test="state != null">
         state,
+      </if>
+      <if test="utcAvailable != null">
+        utc_available,
       </if>
       <if test="sysRemark != null">
         sys_remark,
@@ -169,8 +173,11 @@
       <if test="state != null">
         #{state,jdbcType=VARCHAR},
       </if>
+      <if test="utcAvailable != null">
+        #{utcAvailable,jdbcType=TIMESTAMP},
+      </if>
       <if test="sysRemark != null">
-        #{sysRemark,jdbcType=CHAR},
+        #{sysRemark,jdbcType=VARCHAR},
       </if>
       <if test="utcCreate != null">
         #{utcCreate,jdbcType=TIMESTAMP},
@@ -213,8 +220,11 @@
       <if test="record.state != null">
         state = #{record.state,jdbcType=VARCHAR},
       </if>
+      <if test="record.utcAvailable != null">
+        utc_available = #{record.utcAvailable,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.sysRemark != null">
-        sys_remark = #{record.sysRemark,jdbcType=CHAR},
+        sys_remark = #{record.sysRemark,jdbcType=VARCHAR},
       </if>
       <if test="record.utcCreate != null">
         utc_create = #{record.utcCreate,jdbcType=TIMESTAMP},
@@ -243,7 +253,8 @@
       nickname = #{record.nickname,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       state = #{record.state,jdbcType=VARCHAR},
-      sys_remark = #{record.sysRemark,jdbcType=CHAR},
+      utc_available = #{record.utcAvailable,jdbcType=TIMESTAMP},
+      sys_remark = #{record.sysRemark,jdbcType=VARCHAR},
       utc_create = #{record.utcCreate,jdbcType=TIMESTAMP},
       utc_update = #{record.utcUpdate,jdbcType=TIMESTAMP},
       ex_1 = #{record.ex1,jdbcType=VARCHAR},
@@ -268,8 +279,11 @@
       <if test="state != null">
         state = #{state,jdbcType=VARCHAR},
       </if>
+      <if test="utcAvailable != null">
+        utc_available = #{utcAvailable,jdbcType=TIMESTAMP},
+      </if>
       <if test="sysRemark != null">
-        sys_remark = #{sysRemark,jdbcType=CHAR},
+        sys_remark = #{sysRemark,jdbcType=VARCHAR},
       </if>
       <if test="utcCreate != null">
         utc_create = #{utcCreate,jdbcType=TIMESTAMP},
@@ -295,7 +309,8 @@
       nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},
-      sys_remark = #{sysRemark,jdbcType=CHAR},
+      utc_available = #{utcAvailable,jdbcType=TIMESTAMP},
+      sys_remark = #{sysRemark,jdbcType=VARCHAR},
       utc_create = #{utcCreate,jdbcType=TIMESTAMP},
       utc_update = #{utcUpdate,jdbcType=TIMESTAMP},
       ex_1 = #{ex1,jdbcType=VARCHAR},

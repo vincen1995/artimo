@@ -1,6 +1,7 @@
 package com.skymemo.artimo.service.sec;
 
 import com.skymemo.artimo.entity.sec.SecUser;
+import com.skymemo.artimo.service.sec.dto.UserDTO;
 import com.skymemo.artimo.service.sec.dto.UserQuery;
 
 import java.util.List;
@@ -13,12 +14,32 @@ import java.util.List;
 public interface ISecUserSV {
 
     /**
+     * 添加 用户信息
+     *
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    int addUser(SecUser user) throws Exception;
+
+    /**
      * 查询列表 用户基础信息
+     * 此方法暴露password，谨慎使用
+     *
      * @param query
      * @return
      * @throws Exception
      */
-    List<SecUser> listUserBaseInfo(UserQuery query) throws Exception;
+    @Deprecated()
+    List<SecUser> listUserBasicInfo(UserQuery query) throws Exception;
+
+    /**
+     * 查询列表 用户信息
+     * @param query
+     * @return
+     * @throws Exception
+     */
+    List<UserDTO> listUserDTO(UserQuery query) throws Exception;
 
     /**
      * 查询用户 根据用户名密码

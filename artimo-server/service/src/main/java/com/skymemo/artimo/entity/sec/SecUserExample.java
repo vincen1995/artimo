@@ -445,6 +445,66 @@ public class SecUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andUtcAvailableIsNull() {
+            addCriterion("utc_available is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableIsNotNull() {
+            addCriterion("utc_available is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableEqualTo(LocalDateTime value) {
+            addCriterion("utc_available =", value, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableNotEqualTo(LocalDateTime value) {
+            addCriterion("utc_available <>", value, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableGreaterThan(LocalDateTime value) {
+            addCriterion("utc_available >", value, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("utc_available >=", value, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableLessThan(LocalDateTime value) {
+            addCriterion("utc_available <", value, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("utc_available <=", value, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableIn(List<LocalDateTime> values) {
+            addCriterion("utc_available in", values, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableNotIn(List<LocalDateTime> values) {
+            addCriterion("utc_available not in", values, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("utc_available between", value1, value2, "utcAvailable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUtcAvailableNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("utc_available not between", value1, value2, "utcAvailable");
+            return (Criteria) this;
+        }
+
         public Criteria andSysRemarkIsNull() {
             addCriterion("sys_remark is null");
             return (Criteria) this;

@@ -24,13 +24,17 @@ public enum ErrorCode {
     /* B**** - biz error **/
     BIZ_ERROR("B0000", "业务异常"),
     MULTI_RECORD_ERROR("B0001", "存在多条匹配数据"),
-
-    USER_LOGIN_ERROR("B0100", "用户登录错误"),
+    NOT_FOUND_RECORD("B0002", "未查询到相应纪录"),
+    USER_LOGIN_ERROR("B0100", "登录错误"),
     MULTI_USER_RECORD_ERROR("B0101", "存在多条用户纪录"),
     USER_LOGIN_INFO_ERROR("B0102", "用户名或密码错误"),
+    USER_LOGIN_ERROR_LIMIT("B0103", "用户登录信息错误上限"),
+    USER_BEEN_LOCKED("B0104", "账户被系统封禁"),
+    USER_ALREADY_EXISTS("B0105", "用户名已存在"),
 
     /* C**** - client error */
     CLIENT_ERROR("C0000", "用户端错误"),
+    CLIENT_REQUEST_PARAMS_ERROR("C0001", "请求参数校验失败"),
 
     /* S**** - server internal error */
     SERVER_INTERNAL_ERROR("S0000", "程序内部异常"),
